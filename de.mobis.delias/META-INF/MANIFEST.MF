@@ -1,0 +1,30 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Interaction
+Bundle-SymbolicName: de.mobis.delias;singleton:=true
+Bundle-Activator: org.teamweaver.delias.interaction.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.core.resources;bundle-version="3.8.100",
+ org.eclipse.swt,
+ org.eclipse.team.core,
+ org.eclipse.ui.forms;bundle-version="3.6.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ActivationPolicy: lazy
+Export-Package: org.joda.time,
+ org.joda.time.format,
+ org.teamweaver.delias.interaction;
+  uses:="javax.swing.tree,
+   org.teamweaver.delias.actions,
+   org.eclipse.ui,
+   org.eclipse.ui.plugin,
+   org.osgi.framework,
+   org.eclipse.swt.widgets"
+Import-Package: org.eclipse.jdt.core,
+ org.eclipse.jface.text,
+ org.eclipse.ui.texteditor,
+ org.joda.time,
+ org.joda.time.format
+Bundle-Version: 1.0.0
+
+
