@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.startup">
+      <startup class="org.teamweaver.delias.interaction.Activator"/>
+   </extension>
+   <extension
+         point="org.eclipse.ui.actionSets">
+      <actionSet
+            id="org.teamweaver.delias.interaction.actionSet"
+            label="Delias Action Set"
+            visible="true">
+         <menu
+               id="deliasMenu"
+               label="Delias &amp;Menu"
+               description="Delias">
+            <separator
+                  name="deliasGroup">
+            </separator>
+         </menu>
+         <action
+               class="org.teamweaver.delias.visualization.DeliasAction"
+               icon="icons/Delias.gif"
+               id="org.teamweaver.delias.visualization.DeliasAction"
+               label="&amp;Delias"
+               toolbarPath="deliasgroup"
+               tooltip="Delias">
+         </action>
+      </actionSet>
+   </extension>
+</plugin>
