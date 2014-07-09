@@ -51,6 +51,7 @@ public class Activator extends AbstractUIPlugin implements IStartup{
 
 	@Override
 	public void earlyStartup() {
+		//deliasActionMonitor.getInstance(true);
 		deliasActionMonitor.getInstance(true);
 		
 	}
