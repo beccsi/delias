@@ -19,7 +19,8 @@ Export-Package: org.joda.time,
    org.eclipse.ui,
    org.eclipse.ui.plugin,
    org.osgi.framework,
-   org.eclipse.swt.widgets"
+   org.eclipse.swt.widgets",
+ org.teamweaver.delias.visualization
 Import-Package: org.eclipse.jdt.core,
  org.eclipse.jface.text,
  org.eclipse.ui.texteditor,

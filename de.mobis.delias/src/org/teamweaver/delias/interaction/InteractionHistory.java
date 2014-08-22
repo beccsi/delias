@@ -10,11 +10,14 @@ import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.IWorkbenchPartReference;
 import org.teamweaver.delias.actions.AbstractAction;
 import org.teamweaver.delias.actions.ActionSetImpl;
@@ -28,6 +31,7 @@ public class InteractionHistory{
 	private String name;
 
 	private static ArrayList<ActionSetImpl> actionSetsList;
+	private boolean capturing = true;
 	
 	private Stack<ActionSetImpl> actionSetsStack;
 
@@ -40,6 +44,10 @@ public class InteractionHistory{
 		actionSetsList = new ArrayList<ActionSetImpl>();	
 	}
 	
+	public void stopCapturing(){
+		capturing = false;
+		
+	}
 	public static InteractionHistory getInstance(){
 		if (interactionHistory == null)
 			interactionHistory = new InteractionHistory();
@@ -74,11 +82,15 @@ public class InteractionHistory{
 	}
 	
 	public void addInteraction(AbstractAction action){
-		System.out.println("addInteraction");
-		ActionSetImpl top = getTop();
-		top.addAction(action);
-		if (top.toDispose())
-			cancelDetected(action);
+		//TODO test
+		// capture only when flag is set
+		if(capturing){
+			System.out.println("addInteraction");
+			ActionSetImpl top = getTop();
+			top.addAction(action);
+			if (top.toDispose())
+				cancelDetected(action);
+		}
 	}
 		
 	public void setActivePart(IWorkbenchPartReference ref){
@@ -182,6 +194,7 @@ public class InteractionHistory{
 		ActionSetImpl actionSet = actionSetsStack.peek();
 		return actionSet.same(shell);
 	}
+	
 	public static DefaultMutableTreeNode createTree(){
 		DefaultMutableTreeNode root =
 				new DefaultMutableTreeNode("Actions");
@@ -194,9 +207,18 @@ public class InteractionHistory{
 		//Child = new DefaultMutableTreeNode("Change return type");
 		//newRoot.add(Child);
 		//root.add(newRoot);
-		return root;
-		
+		return root;	
 	}
+	
+	public static TreeItem createSwtTree(Tree parent){
+		TreeItem root = new TreeItem(parent, SWT.NONE);
+		root.setText("Actions");
+        for(ActionSetImpl actSet : actionSetsList){
+        	actSet.createActionNodeSwt(root);
+        }
+		return root;
+	}
+	
 	public void print(){
 		if (actionSetsList.size() <= 0)
 			return;
@@ -249,5 +271,9 @@ public class InteractionHistory{
 				}
 			}
 		}
+	}
+
+	public static void stop() {
+		
 	}
 }

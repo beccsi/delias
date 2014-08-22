@@ -63,7 +63,8 @@ public class InteractionHistoryHandler {
 	private IWorkbenchPage activePage;
 
 	private static InteractionHistory interactionHistory;
-	
+	//This flag is set to true when the InteractionHistoryHandler should capture the actions, otherwise it is set to false
+	private boolean capturing;
 	private PartListener partListener;
 	private GenericEventListener eventListener;
 	private SelectionEventListener selectionListener;
@@ -82,6 +83,7 @@ public class InteractionHistoryHandler {
 	
 	private static InteractionHistoryHandler interactionHistoryHandler;
 	private static List<DEvent> evList;
+	private static List<List<DEvent>> histories;
 	
 	
 	public static final String EXTENSION_POINT_ID = "org.teamweaver.delias.interaction.evaluater";
@@ -158,6 +160,7 @@ public class InteractionHistoryHandler {
 				
 				interactionHistory = InteractionHistory.getInstance();
 				interactionHistory.startInteractionSequence(display);
+				interactionHistory.stopCapturing();
 				
 				
 				PlatformUI.getWorkbench().getActiveWorkbenchWindow()

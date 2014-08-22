@@ -1,9 +1,15 @@
 package org.teamweaver.delias.actions;
 
 
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swt.widgets.TreeItem;
+
 import java.util.ArrayList;
+
 import javax.swing.tree.DefaultMutableTreeNode;
+
 import org.eclipse.swt.widgets.Shell;
 import org.teamweaver.delias.commons.CancelDetector;
 import org.teamweaver.delias.commons.CancelListener;
@@ -90,6 +96,28 @@ public class ActionSetImpl extends AbstractActionSet implements CancelListener{
 		}
 		return root;
 	}
+	public TreeItem createActionNodeSwt(TreeItem root){
+		for (Object actSet : actions){
+			if(actSet instanceof ActionSetImpl){
+				System.out.println("new root");
+				TreeItem newRoot = new TreeItem(root, SWT.NONE);
+				newRoot.setText("Dialog "+((ActionSetImpl) actSet).getID());
+				//DefaultMutableTreeNode newRoot = new DefaultMutableTreeNode("Dialog "+((ActionSetImpl) actSet).getID());
+				//root.add(newRoot);
+				((ActionSetImpl) actSet).createActionNodeSwt(newRoot);
+			} else if (actSet instanceof AbstractAction){
+				TreeItem newRoot = new TreeItem(root, SWT.NONE);
+				newRoot.setText("Default");
+				//root.add(((AbstractAction)actSet).actionNode());
+			}
+		}
+		return root;
+	}
+	
+	
+	
+	
+	
 	public void print(){
 		if (actions == null || actions.size() <= 0)
 			return;
